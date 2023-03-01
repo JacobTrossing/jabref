@@ -297,9 +297,9 @@ public class NetworkTabViewModel implements PreferenceTabViewModel {
 
         // Workaround for testing, since the URLDownload uses stored proxy settings, see
         // preferences.storeProxyPreferences(...) below.
-        if(proxyUseAuthenticationProperty.getValue()){
-            String s = String.valueOf(dialogService.showInputDialogWithDefaultAndWait("Write proxy password","", ""));
-            proxyPasswordProperty.setValue(s);
+        if(proxyUseAuthenticationProperty.getValue()){ //Might have to add 1 more check: && proxyPasswordProperty.getValue() == "
+            String password = String.valueOf(dialogService.showInputDialogWithDefaultAndWait("Write proxy password","", ""));
+            proxyPasswordProperty.setValue(password);
         }
         storeProxySettings(new ProxyPreferences(
                 proxyUseProperty.getValue(),
