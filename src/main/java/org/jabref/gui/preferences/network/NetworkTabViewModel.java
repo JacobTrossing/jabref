@@ -219,7 +219,7 @@ public class NetworkTabViewModel implements PreferenceTabViewModel {
             return;
         }
 
-
+        ProxyRegisterer.register(newProxyPreferences);
 
         proxyPreferences.setUseProxy(newProxyPreferences.shouldUseProxy());
         proxyPreferences.setHostname(newProxyPreferences.getHostname());
