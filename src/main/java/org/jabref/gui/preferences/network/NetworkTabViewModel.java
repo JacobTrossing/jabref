@@ -2,6 +2,7 @@ package org.jabref.gui.preferences.network;
 
 import java.net.MalformedURLException;
 import java.nio.file.Path;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -44,6 +45,8 @@ import de.saxsys.mvvmfx.utils.validation.Validator;
 import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.jabref.logic.util.PasswordEncryptor;
 
 public class NetworkTabViewModel implements PreferenceTabViewModel {
     private static final Logger LOGGER = LoggerFactory.getLogger(NetworkTabViewModel.class);
@@ -216,14 +219,14 @@ public class NetworkTabViewModel implements PreferenceTabViewModel {
             return;
         }
 
-        ProxyRegisterer.register(newProxyPreferences);
+
 
         proxyPreferences.setUseProxy(newProxyPreferences.shouldUseProxy());
         proxyPreferences.setHostname(newProxyPreferences.getHostname());
         proxyPreferences.setPort(newProxyPreferences.getPort());
         proxyPreferences.setUseAuthentication(newProxyPreferences.shouldUseAuthentication());
         proxyPreferences.setUsername(newProxyPreferences.getUsername());
-        proxyPreferences.setPassword(newProxyPreferences.getPassword());
+        proxyPreferences.setPassword(PasswordEncryptor.hash(newProxyPreferences.getPassword()));
     }
 
     public void storeSSLSettings() {
